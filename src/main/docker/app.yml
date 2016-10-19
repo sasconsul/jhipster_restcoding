@@ -1,0 +1,16 @@
+version: '2'
+services:
+    jhipster_restcoding-app:
+        image: jhipster_restcoding
+        external_links:
+            - jhipster_restcoding-mysql:mysql
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jhipster_restcoding?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    jhipster_restcoding-mysql:
+        extends:
+            file: mysql.yml
+            service: jhipster_restcoding-mysql
