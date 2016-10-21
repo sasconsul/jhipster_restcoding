@@ -2,7 +2,6 @@ package com.sasconsul.restcoding.repository;
 
 import com.sasconsul.restcoding.config.audit.AuditEventConverter;
 import com.sasconsul.restcoding.domain.PersistentAuditEvent;
-
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.stereotype.Repository;
