@@ -37,9 +37,20 @@ public class RegistryServiceImpl implements RegistryService{
 
         // generate the stringId
         //
-        registry.setStringId(generateStringId(registry.getString(),0 ) );
+        registry.setStringId(generateStringId(registry.getString() ));
         RegistryEntry result = registryRepository.save(registry);
         return result;
+    }
+
+    /**
+     * Generate a stringId from the input string
+     *
+     * @param s the string for the registry entry
+     * @return
+     */
+    
+    public long  generateStringId(String s) {
+    	return generateStringId( s, 0);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.sasconsul.restcoding.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -17,14 +18,17 @@ public class RegistryEntry implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     @JsonDeserialize(using = LongIgnoreDeserializer.class)
     @Column(name = "string_id")
     private Long stringId;
 
+    @NotNull
     @Column(name = "string")
     private String string;
 

@@ -1,3 +1,36 @@
+# Requirements
+The problem is to store and retrieve UTF-8 strings via REST two endpoint api's that accept and produce JSON .
+
+* Use a generated String ID for the string values registered in the registry.
+  * the generated string id must be calculated recursively.
+  * I chose not to make the string_id field the index field for the registry entry.  This has a number of implications:
+   * The registry entry has three fields: id, string_id, and string
+   * The JSON deserializer should ignore the string_id field from the rest api (*TODO*) 
+   
+* Store the data in a flat plain text file
+  * The files should be 'plain text' for debugging:
+   * MySQL CSV engine  For MySQL 5.7.5. and later
+   * See: http://dev.mysql.com/doc/refman/8.0/en/csv-storage-engine.html 
+
+   * http://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_default_storage_engine
+   
+   If deploying with docker use the mysql.yml file to configure the mysqld process with the CSV storage engine
+
+  * There are a number of ways to do this:
+  * Write a custom persistence layer (More than a week of work)
+  * https://en.wikipedia.org/wiki/Flat_file_database
+   * Cache data in memory, reading and writing to the text file periodically. (May lose data)
+   * Find an SQL DB that can read and write text files natively.  I have found one Java DB that fits the bill -- HSQLDB via its TEXT TABLE feature.  
+            	(H2 database can read from a CSV, but can note randomly write into a CSV.)
+   * Find a JDBC driver for text files. I have found that the Relational Junction XML and CSV JDBC Drivers claim to allow SQL operations. [http://www.csv-jdbc.com/|Sesame Software Relational Junction]
+   
+   * Use mongodb in a json mode so that the db can be read as a text file. (Not sure it is possible.)
+
+		select @@datadir;  -- find where the data is stored.
+
+   * How to set this up with JPA?
+            	
+			
 # jhipster_restcoding
 
 This application was generated using JHipster 3.9.1, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.9.1](https://jhipster.github.io/documentation-archive/v3.9.1).
