@@ -1,9 +1,15 @@
 package com.sasconsul.restcoding.service;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.*;
 
-import com.googlecode.zohhak.api.TestWith;
+import java.util.Arrays;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
+
 import com.sasconsul.restcoding.service.impl.RegistryServiceImpl;
 import com.sasconsul.restcoding.utils.RegistryUtils;
 
@@ -17,18 +23,23 @@ import com.sasconsul.restcoding.utils.RegistryUtils;
  *
  * @see RegistryServiceImpl
  */
-@RunWith(SpringRunner.class)
+@RunWith(Parameterized.class)
 public class RegistryServiceImplTest {
 
     private RegistryServiceImpl registryServiceImpl = new RegistryServiceImpl();
 
-        
-    @TestWith({ "abc" , "ABBC", "abbc", "" })
-    void testGenerateStringId(String fInput) {
-        long ans = registryServiceImpl.generateStringId(fInput, 0);
-        long expected = RegistryUtils.validateGenerateStringId(fInput);
-
-        assert expected == ans;
+    @Parameters(name = "{index}: registry string=\"{0}\"")
+    public static Iterable<? extends Object> data() {
+    		return Arrays.asList( "abc" , "ABBC", "abbc", null, "" );
+    }
+    
+    @Parameter
+    public String fInput;
+  
+    @Test
+    public void testGenerateStringId() {
+	    	assertEquals(RegistryUtils.validateGenerateStringId(fInput),
+	    			registryServiceImpl.generateStringId(fInput, 0) );
     }
 
     //TODO more RegistryService tests.
